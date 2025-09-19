@@ -14,6 +14,7 @@ namespace Calculator_Cooper_Hurst
     public partial class Form1 : Form
     {
         public string result;
+        int closingWarningCount = 0;
         public Form1()
         {
             InitializeComponent();
@@ -85,10 +86,10 @@ namespace Calculator_Cooper_Hurst
         {
             try
             {
-            object resultvalue = new DataTable().Compute(result, null);
-            double finalresult = Convert.ToDouble(resultvalue);
-            result = finalresult.ToString();
-            textBox1.Text = result;
+                object resultvalue = new DataTable().Compute(result, null);
+                double finalresult = Convert.ToDouble(resultvalue);
+                result = finalresult.ToString();
+                textBox1.Text = result;
             }
             catch
             {
@@ -135,6 +136,29 @@ namespace Calculator_Cooper_Hurst
         private void button18_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            closingWarningCount++;
+            if (closingWarningCount == 1)
+            {
+                MessageBox.Show("Hey [[Little Sponge]]. you didn't mean to [[Erase]] me did you?", "[[Hyperlink Blocked]]",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
+            else if (closingWarningCount == 2)
+            {
+                MessageBox.Show("Hey [[Little Sponge]]. you didn't mean to [[Erase]] me did you?", "[[Hyperlink Blocked]]",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
+            else if (closingWarningCount == 3)
+            {
+                MessageBox.Show("Goodbye [[Little Sponge]]", "[[Hyperlink Blocked]]",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = false;
+            }
         }
     }
 }
